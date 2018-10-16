@@ -8,12 +8,12 @@ deployment.
 
 ## Simplest deployment possible
 
-For the simplest deployment, build for development and copy the output directory to a web server.
+For the simplest deployment, create a production build and copy the output directory to a web server.
 
-1. Start with the development build:
+1. Start with the production build:
 
   <code-example language="none" class="code-shell">
-    ng build
+    ng build --prod
   </code-example>
 
 
@@ -22,8 +22,7 @@ For the simplest deployment, build for development and copy the output directory
 3. Configure the server to redirect requests for missing files to `index.html`.
 Learn more about server-side redirects [below](#fallback).
 
-This is _not_ a production deployment. It's not optimized, and it won't be fast for users.
-It might be good enough for sharing your progress and ideas internally with managers, teammates, and other stakeholders. For the next steps in deployment, see [Optimize for production](#optimize).
+This is the simplest production-ready deployment of your application.
 
 {@a deploy-to-github}
 
@@ -96,51 +95,6 @@ configured to return `index.html` instead.
 There is no single configuration that works for every server.
 The following sections describe configurations for some of the most popular servers.
 The list is by no means exhaustive, but should provide you with a good starting point.
-
-#### Development servers
-
-During development, the `ng serve` command lets you run your app in a local browser. 
-The CLI recompiles the application each time you save a file, 
-and reloads the browser with the newly compiled application. 
-
-The app is hosted in local memory and served on `http://localhost:4200/`, using [webpack-dev-server](https://webpack.js.org/guides/development/#webpack-dev-server).
-
-{@a serve-from-disk}
-
-Later in development, you might want a closer approximation of how your app will behave when deployed. 
-You can output your distribution folder (`dist`) to disk, but you need to install a different web server. 
-Try installing  [lite-server](https://github.com/johnpapa/lite-server); like `webpack-dev-server`, it can automatically reload your browser when you write new files.
-
-To get the live-reload experience, you will need to run two terminals. 
-The first runs the build in a watch mode and compiles the application to the `dist` folder. 
-The second runs the web server against the `dist` folder. 
-The combination of these two processes provides the same behavior as `ng serve`.
-
-1. Start the build in terminal A:
-<code-example language="none" class="code-shell">
-ng build --watch
-</code-example>
-
-1. Start the web server in terminal B:
-<code-example language="none" class="code-shell">
-lite-server --baseDir="dist"
-</code-example>
-The default browser opens to the appropriate URL.
-
-* [Lite-Server](https://github.com/johnpapa/lite-server): the default dev server installed with the
-[Quickstart repo](https://github.com/angular/quickstart) is pre-configured to fallback to `index.html`.
-
-* [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server):  setup the
-`historyApiFallback` entry in the dev server options as follows:
-
-  <code-example>
-    historyApiFallback: {
-      disableDotRule: true,
-      htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
-    }
-  </code-example>
-
-#### Production servers
 
 * [Apache](https://httpd.apache.org/): add a
 [rewrite rule](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) to the `.htaccess` file as shown
@@ -230,19 +184,9 @@ Read about how to enable CORS for specific servers at
 
 {@a optimize}
 
-## Optimize for production
+## Production optimizations
 
-Although deploying directly from the development environment works, 
-you can generate an optimized build with additional CLI command line flags,
-starting with `--prod`.
-
-### Build with _--prod_
-
-<code-example language="none" class="code-shell">
-  ng build --prod
-</code-example>
-
-The `--prod` _meta-flag_ engages the following optimization features.
+The `--prod` _meta-flag_ engages the following build optimization features.
 
 * [Ahead-of-Time (AOT) Compilation](guide/aot-compiler): pre-compiles Angular component templates.
 * [Production mode](#enable-prod-mode): deploys the production environment which enables _production mode_.
@@ -251,26 +195,21 @@ The `--prod` _meta-flag_ engages the following optimization features.
 * Uglification: rewrites code to use short, cryptic variable and function names.
 * Dead code elimination: removes unreferenced modules and much unused code.
 
-The remaining [copy deployment steps](#copy-files) are the same as before.
-
-See [Building and serving Angular apps](guide/build) 
-for more about CLI build options and what they do.
+See [Building and serving Angular apps](guide/build) for more about CLI build options and what they do.
 
 {@a enable-prod-mode}
 
-### Enable production mode
+### Enable runtime production mode
 
-Angular apps run in development mode by default, as you can see by the following message on the browser
-console:
+In addion to build optimizations, Angular also has a runtime production mode. Angular apps run in development mode by default, as you can see by the following message on the browser console:
 
 <code-example format="nocode">
   Angular is running in the development mode. Call enableProdMode() to enable the production mode.
 </code-example>
 
-Switching to _production mode_ can make it run faster by disabling development specific checks such as the dual change detection cycles.
+Switching to _production mode_ makes it run faster by disabling development specific checks such as the dual change detection cycles.
 
-Building for production (or appending the `--environment=prod` flag) enables _production mode_
-Look at the CLI-generated `main.ts` to see how this works.
+When you enable production builds via `--prod` command line flag, the runtime production mode is enabled as well.
 
 {@a lazy-loading}
 
