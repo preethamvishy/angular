@@ -1,43 +1,36 @@
 ## PR Checklist
-Please check if your PR fulfills the following requirements:
+Please check all that apply to this PR using "x":
 
-- [ ] The commit message follows our guidelines: https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit
-- [ ] Tests for the changes have been added (for bug fixes / features)
-- [ ] Docs have been added / updated (for bug fixes / features)
+- [ ] I have checked that this PR is not a duplicate of an existing PR
+- [ ] I have checked that this PR does not introduce a breaking change
+- [ ] This PR introduces breaking changes and I have provided a detailed explanation below
 
 
 ## PR Type
 What kind of change does this PR introduce?
 
-<!-- Please check the one that applies to this PR using "x". -->
+<!-- Please check all that apply to this PR using "x". -->
 
 - [ ] Bugfix
 - [ ] Feature
-- [ ] Code style update (formatting, local variables)
-- [ ] Refactoring (no functional changes, no api changes)
-- [ ] Build related changes
-- [ ] CI related changes
-- [ ] Documentation content changes
-- [ ] angular.io application / infrastructure changes
-- [ ] Other... Please describe:
+- [ ] Breaking changes (bugfix or feature that introduces breaking changes)
+- [ ] Code style update (formatting)
+- [ ] Refactoring (no functional changes)
+- [ ] Documentation changes
+- [ ] Other - Please describe:
+
+## Fixes
+
+Issue Number: N/A
 
 
 ## What is the current behavior?
-<!-- Please describe the current behavior that you are modifying, or link to a relevant issue. -->
-
-Issue Number: N/A
 
 
 ## What is the new behavior?
 
 
-## Does this PR introduce a breaking change?
-
-- [ ] Yes
-- [ ] No
-
-
-<!-- If this PR contains a breaking change, please describe the impact and migration path for existing applications below. -->
-
-
 ## Other information
+
+
+<!-- If this PR contains a breaking change, please describe the impact and solution strategy for existing applications below. -->
